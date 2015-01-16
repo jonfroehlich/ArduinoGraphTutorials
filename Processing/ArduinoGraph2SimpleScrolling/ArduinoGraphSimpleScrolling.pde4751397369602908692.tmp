@@ -1,0 +1,57 @@
+// Graphing sketch
+// This is a remix of http://arduino.cc/en/Tutorial/Graph by Tom Igoe
+
+import processing.serial.*;
+
+Serial _myPort;       // The serial port
+int _yPixelValues[];
+
+void setup () {
+  // set the window size:
+  size(400, 300);
+  _yPixelValues = new int[width];
+
+  // List all the available serial ports
+  println(Serial.list());
+  
+  // Open whatever port is the one you're using.
+  _myPort = new Serial(this, Serial.list()[1], 9600);
+  
+  // don't generate a serialEvent() unless you get a newline character:
+  _myPort.bufferUntil('\n');
+  
+  // set inital background:
+  background(0);
+}
+void draw () {
+  // everything happens in the serialEvent()
+}
+
+void serialEvent (Serial myPort) {
+  // get the ASCII string:
+  String inString = _myPort.readStringUntil('\n');
+  background(0);
+  
+  if (inString != null) {
+    // trim off any whitespace:
+    inString = trim(inString);
+    
+    // convert to an int and map to the screen height:
+    int analogVal = int(inString); 
+    int yPixelValue = (int)map(analogVal, 0, 1023, 0, height);
+    
+    //set the color
+    stroke(127, 34, 255, 127); 
+    
+    // Slide everything down in the array while also drawing to the screen
+    for (int i = 0; i < _yPixelValues.length - 1; i++) {
+      int nextYPixelVal = _yPixelValues[i+1];
+      _yPixelValues[i] = nextYPixelVal;
+      line(i, height, i, height - nextYPixelVal);
+    }
+    
+    _yPixelValues[_yPixelValues.length - 1] = yPixelValue;
+    line(_yPixelValues.length - 1, height, _yPixelValues.length - 1, height - yPixelValue);
+    
+  }
+}
