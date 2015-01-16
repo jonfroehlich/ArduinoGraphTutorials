@@ -41,7 +41,7 @@ Note how you do not have to print the character '\n' as this is simply the newli
 Serial.println(analogRead(A0));
 ```
 
-The full program, in fact, is nearly that simple:
+The full program, in fact, is nearly that simple (and again, is drawn from http://arduino.cc/en/Tutorial/Graph):
 
 ```
 // created 2006
@@ -86,8 +86,7 @@ Again, you can use any Arduino sketch that prints values like this to the serial
 There is a concurrent read/write problem on the primary data object (_mapLabelToGraphData) in the more complex examples. This is because the UI thread can reformat the data object to deal with window resizing while the serial port method is simultaneously adding new data (this is bad!). I couldn't figure out how to create proper thread synchronization (e.g., via a lock object) in Processing. So, instead, I just put try/catches around access to this object.
 
 ## About
-Code by Professor Jon Froehlich
-jonfroehlich@gmail.com
-Written for CMSC838f Tangible Interactive Computing
+Originally written for my CMSC838f Tangible Interactive Computing course at the University of Maryland
+
 http://cmsc838f-s15.wikispaces.com/
 
