@@ -35,9 +35,11 @@ That is:
 N
 ```
 
-You can use any Arduino sketch that prints values like this to the serial port but I suggest you start with PrintSingleAnalogInputForProcessing.ino. This simply prints A0 to the serial port:
+Note how you do not have to print the character '\n' as this is simply the newline character and automatically added by the println function. You can use any Arduino sketch that prints values like this to the serial port but I suggest you start with PrintSingleAnalogInputForProcessing.ino. This simply prints A0 to the serial port:
 
-'Serial.println(analogRead(A0));
+```
+Serial.println(analogRead(A0));
+```
 
 The full program, in fact, is nearly that simple:
 
@@ -62,8 +64,6 @@ void loop() {
 }
 ```
 
-Note how you do not have to print the character '\n' as this is simply the newline character and automatically added by the println function 
-
 ## Serial Port Data Format (Examples 5-6)
 For examples #5 and #6, there is a more advanced comma-separated format:
 ```
@@ -80,8 +80,10 @@ A0=450, A2=240, A4=400\n
 A0=321, A2=240, A4=500\n
 ```
 
-## KNOWN PROBLEMS
-There is a concurrent read/write problem on the primary data object (_mapLabelToGraphData) in the resizable examples. This is because the UI thread reformats the data object to deal with window resizing while the serial port method is adding new data. I couldn't figure out how to create proper thread synchronization (E.g., via a lock object) in Processing. So, instead, I just put try/catches around access to this object.
+Again, you can use any Arduino sketch that prints values like this to the serial port but I suggest you start with PrintInputsForProcessing.ino (which is in this repo).
+
+## Known Problems
+There is a concurrent read/write problem on the primary data object (_mapLabelToGraphData) in the more complex examples. This is because the UI thread can reformat the data object to deal with window resizing while the serial port method is simultaneously adding new data (this is bad!). I couldn't figure out how to create proper thread synchronization (e.g., via a lock object) in Processing. So, instead, I just put try/catches around access to this object.
 
 ## About
 Code by Professor Jon Froehlich
