@@ -7,12 +7,12 @@
 // creating visualizations in Processing. Note: this sketch is for #1 - #4 below. For #5 and #6,
 // use the sketch: PrintInputsForProcessing
 //
-// 1. ArduinoGraph : The simplest and essentially Tom Igoe's original ArduinoGraph code (http://arduino.cc/en/Tutorial/Graph)
-// 2. ArduinoGraphSimpleScrolling : changes visualization to scrolling rather than looping
-// 3. ArduinoGraphSimpleScrollingDoubleBuffered : adds in double buffering
-// 4. ArduinoGraphSimpleScrollingDoubleBufferedResizable : adds in responsive window resizing
-// 5. JonArduinoGraphAnalogOnly : adds in support for handling multiple channels of analog input 
-// 6. JonArduinoGraph : the full visualizer that supports multiple analog and digital input channels
+// 1. ArduinoGraph1.pde : The simplest and essentially Tom Igoe's original code (with some variable renaming)
+// 2. ArduinoGraph2SimpleScrolling.pde : changes visualization to scrolling rather than looping
+// 3. ArduinoGraph3SimpleScrollingDoubleBuffered.pde : adds in double buffering
+// 4. ArduinoGraph4SimpleScrollingDoubleBufferedResizable.pde : adds in responsive window resizing
+// 5. ArduinoGraph5AnalogOnly.pde : adds in support for handling multiple channels of analog input (note: the data format changes)
+// 6. ArduinoGraph6DigitalAndAnalog.pde : adds in support for digital input channels
 //
 // This code was originally developed by the Arduino team: http://www.arduino.cc/en/Tutorial/Graph
 //

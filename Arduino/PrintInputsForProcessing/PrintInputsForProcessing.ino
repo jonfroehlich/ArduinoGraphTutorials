@@ -14,21 +14,21 @@
 // creating visualizations in Processing. Note: this sketch does NOT work for #1-4 below. Instead,
 // use the sketch: PrintSingleAnalogInputForProcessing
 //
-// 1. ArduinoGraph : The simplest and essentially Tom Igoe's original ArduinoGraph code (http://arduino.cc/en/Tutorial/Graph)
-// 2. ArduinoGraphSimpleScrolling : changes visualization to scrolling rather than looping
-// 3. ArduinoGraphSimpleScrollingDoubleBuffered : adds in double buffering
-// 4. ArduinoGraphSimpleScrollingDoubleBufferedResizable : adds in responsive window resizing
-// 5. JonArduinoGraphAnalogOnly : adds in support for handling multiple channels of analog input 
-// 6. JonArduinoGraph : the full visualizer that supports multiple analog and digital input channels
+// 1. ArduinoGraph1.pde : The simplest and essentially Tom Igoe's original code (with some variable renaming)
+// 2. ArduinoGraph2SimpleScrolling.pde : changes visualization to scrolling rather than looping
+// 3. ArduinoGraph3SimpleScrollingDoubleBuffered.pde : adds in double buffering
+// 4. ArduinoGraph4SimpleScrollingDoubleBufferedResizable.pde : adds in responsive window resizing
+// 5. ArduinoGraph5AnalogOnly.pde : adds in support for handling multiple channels of analog input (note: the data format changes)
+// 6. ArduinoGraph6DigitalAndAnalog.pde : adds in support for digital input channels
 //
-// This particular Arduino sketch goes with JonArduinoGraphAnalogOnly and JonArduinoGraph and 
-// was originally developed for the Arduino Uno
+// This particular Arduino sketch goes with #5 and 6 above (ArduinoGraph5AnalogOnly and ArduinoGraph6DigitalAndAnalog)
+// and was originally developed for the Arduino Uno
 
 bool _analogInPinStatuses[6] = {true, false, false, false, false, false};
 String _analogInPinLabels[6] = {"A0", "A1", "A2", "A3", "A4", "A5"};
 int _analogInPinValues[6] = { -1, -1, -1, -1, -1, -1};
 
-bool _digitalInPinStatuses[14] = { false, false, true, true, true, true, true, true, true, true, true, true, true, true };
+bool _digitalInPinStatuses[14] = { false, false, true, true, false, false, false, false, false, false, false, false, false, false };
 String _digitalInPinLabels[14] = {"D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13"};
 String _digitalInPinValues[14] = {"LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW"};
 
