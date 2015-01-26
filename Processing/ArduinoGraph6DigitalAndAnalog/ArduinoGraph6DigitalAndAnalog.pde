@@ -137,7 +137,7 @@ float _maxYDigitalValue = 1.2f;
 // There is often garbage on the serial port. We wait 10 lines before
 // actually parsing and using content
 int _ignoreFirstNumLines = 10;
-int _linesRead = 0;
+int _initializationLinesRead = 0;
 
 PFont _axisFont = null;
 StringList _labels = new StringList();
@@ -405,10 +405,14 @@ void serialEvent (Serial myPort) {
     String inString = _serialPort.readStringUntil('\n');
     //println("Read in " + inString);
 
-    if (_linesRead < _ignoreFirstNumLines) {
+    if (_initializationLinesRead < _ignoreFirstNumLines) {
       _serialPort.clear();
-      _linesRead++;
+      _initializationLinesRead++;
+      println(String.format("Initializing serial port, %d lines read", _initializationLinesRead));
       return;
+    }else if(_initializationLinesRead == _ignoreFirstNumLines){
+      println(String.format("Initialized serial port after %d lines read", _initializationLinesRead));
+      _initializationLinesRead++;
     }
 
     if (inString != null) {

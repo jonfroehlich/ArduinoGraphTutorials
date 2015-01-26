@@ -24,7 +24,7 @@
 // This particular Arduino sketch goes with #5 and 6 above (ArduinoGraph5AnalogOnly and ArduinoGraph6DigitalAndAnalog)
 // and was originally developed for the Arduino Uno
 
-bool _analogInPinStatuses[6] = {true, false, false, false, false, false};
+bool _analogInPinStatuses[6] = {true, true, true, true, false, false};
 String _analogInPinLabels[6] = {"A0", "A1", "A2", "A3", "A4", "A5"};
 int _analogInPinValues[6] = { -1, -1, -1, -1, -1, -1};
 
