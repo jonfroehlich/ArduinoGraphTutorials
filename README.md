@@ -10,9 +10,10 @@ To run this Processing sketch, your Arduino must be plugged in and communicating
 4. ArduinoGraph4SimpleScrollingDoubleBufferedResizable.pde : adds in responsive window resizing
 5. ArduinoGraph5AnalogOnly.pde : adds in support for handling multiple channels of analog input (note: the data format changes)
 6. ArduinoGraph6DigitalAndAnalog.pde : adds in support for digital input channels
+7. ArduinoGraph7Abstract.pde: an abstract visualization--a simple particle system based on Daniel Shiffman's particle system tutorial
 
-The first four examples are simple, the fifth example is intermediate (ArduinoGraph5AnalogOnly.pde), and the last 
-example (ArduinoGraph6DigitalAndAnalog.pde) is more advanced
+The first four examples are simple, the fifth example is intermediate (ArduinoGraph5AnalogOnly.pde), and the sixth 
+example (ArduinoGraph6DigitalAndAnalog.pde) is more advanced. The seventh example (ArduinoGraph7Abstract.pde) is intermediate again and rather straightforward if you have prior experience with particle systems.
 
 ## Serial Port Data Format (Examples 1-4)
 For the first four examples, the serial port data must be formatted like the following. 
