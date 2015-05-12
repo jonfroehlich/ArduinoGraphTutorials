@@ -48,6 +48,8 @@ void setup () {
   println(Serial.list());
   
   // TODO: change X in Serial.list()[X] to the index that is your Arduino
+  // On my Windows machine, my Arduino Uno is index 1
+  // On my Mac, it's index 4
   _serialPort = new Serial(this, Serial.list()[1], 9600);
   
   // don't generate a serialEvent() unless you get a newline character:
@@ -73,7 +75,8 @@ void serialEvent (Serial myPort) {
     int yPixelValue = (int)map(analogVal, 0, 1023, 0, height);
 
     // draw the line:
-    stroke(127, 34, 255); //set the color
+    int redColor = (int)map(analogVal, 0, 1023, 0, 255);
+    stroke(redColor, 34, 255); //set the color
     line(_xPos, height, _xPos, height - yPixelValue);
 
     // at the edge of the screen, go back to the beginning:

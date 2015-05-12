@@ -106,7 +106,7 @@ HashMap<String, ParticleSystem> _mapLabelToParticleSystem = new HashMap<String, 
 
 void setup () {
   // set the window size:
-  size(500, 550);
+  size(1100, 550);
 
   _frameWidthOnLastDraw = width;
   _frameHeightOnLastDraw = height;
@@ -125,7 +125,9 @@ void setup () {
   println(Serial.list());
 
   // Open whatever port is the one you're using.
-  _serialPort = new Serial(this, Serial.list()[1], 9600);
+  // On my PC at home, it's the second option in the list, index 1
+  // On my Mac, it's the fifth option in the list, index 4
+  _serialPort = new Serial(this, Serial.list()[4], 9600);
 
   // don't generate a serialEvent() unless you get a newline character:
   _serialPort.bufferUntil('\n');

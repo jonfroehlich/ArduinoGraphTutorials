@@ -64,8 +64,8 @@ final int MAX_DIGITAL_VALUE = 1;
 final int MIN_DIGITAL_VALUE = 0;
 
 final int MAX_ANALOG_INPUTS = 6;
-final int DEFAULT_GRAPH_DATA_OPACITY = 175;
-final int DEFAULT_GRAPH_ANALOG_DATA_STROKE_WEIGHT= 4;
+final int DEFAULT_GRAPH_DATA_OPACITY = 100;
+final int DEFAULT_GRAPH_ANALOG_DATA_STROKE_WEIGHT= 3;
 final int DEFAULT_GRAPH_DIGITAL_DATA_STROKE_WEIGHT= 1;
 final int MAX_SINGLE_DIGITAL_GRAPH_HEIGHT = 40; //pixels
 final float MAX_DIGITAL_VIS_AREA_FRACTION = 0.4f;
@@ -200,6 +200,8 @@ void setup () {
   println(Serial.list());
 
   // Open whatever port is the one you're using.
+  // On my PC at home, it's the second option in the list, index 1
+  // On my Mac, it's the fifth option in the list, index 4
   _serialPort = new Serial(this, Serial.list()[1], 9600);
 
   // don't generate a serialEvent() unless you get a newline character:
@@ -347,6 +349,9 @@ void drawAnalogGraphData(PGraphics pg, GraphData graphData) {
 
   for (int i = 0; i < graphData.length () - 1; i++) {
     float yCurValue = map(graphData.Values[i], MIN_ANALOG_VALUE, MAX_ANALOG_VALUE, _minYAnalogValue, _maxYAnalogValue);
+    
+    //println(String.format("%s: value=%d y=%f", graphData.Label, graphData.Values[i], yCurValue));
+    
     float yNextValue = map(graphData.Values[i + 1], MIN_ANALOG_VALUE, MAX_ANALOG_VALUE, _minYAnalogValue, _maxYAnalogValue);
     float yCurPixelValue = map(yCurValue, _minYAnalogValue, _maxYAnalogValue, 0, _analogVisAreaHeight); 
     float yNextPixelValue = map(yNextValue, _minYAnalogValue, _maxYAnalogValue, 0, _analogVisAreaHeight); 
@@ -358,12 +363,22 @@ void drawAnalogLegend(PGraphics pg, HashMap<String, GraphData> mapLabelToGraphDa
   int fontSize = 12;
   pg.textFont(_axisFont, fontSize);  // Specify font to be used
   color fontColor = color(225, 225, 225, 200);
+  
+  int longestLabelWidth = 0;
+  for (String label : _labels) {
+     int curLabelWidth = (int)pg.textWidth(label);
+     if(curLabelWidth > longestLabelWidth){
+       longestLabelWidth = curLabelWidth;
+     }
+  }
 
   int legendEntry = 0;
   int yStartLoc = 25;
-  int xLoc = width - 70;
+  
   int rectWidth = 15;
   int rectHeight = 9;
+  
+  int xLoc = width - (longestLabelWidth + rectWidth + 10);
   
   for (String label : _labels) {
     GraphData graphData = mapLabelToGraphData.get(label);
@@ -428,7 +443,7 @@ void serialEvent (Serial myPort) {
         if (labelValue.length == 2) {
           String label = labelValue[0];
 
-          String strValue = labelValue[1].toLowerCase();
+          String strValue = trim(labelValue[1].toLowerCase());
           boolean isAnalog = true;
           int value = -1;
           if (strValue.startsWith("l") || strValue.startsWith("h")) {
@@ -443,6 +458,8 @@ void serialEvent (Serial myPort) {
             value = int(strValue);
           }
 
+          //println(String.format("Read '%s' strValue=%s rawValue=%d", label, strValue, value)); 
+        
           if (!_mapLabelToGraphData.containsKey(label)) {
             int[] values = new int[width];
             //int colorIndex = (int)random(_analogColorPalette.size()); 

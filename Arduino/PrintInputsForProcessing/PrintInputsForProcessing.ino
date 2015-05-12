@@ -24,24 +24,41 @@
 // This particular Arduino sketch goes with #5 and 6 above (ArduinoGraph5AnalogOnly and ArduinoGraph6DigitalAndAnalog)
 // and was originally developed for the Arduino Uno
 
-bool _analogInPinStatuses[6] = {true, true, true, true, false, false};
+bool _analogInPinStatuses[6] = {true, true, false, false, false, false};
 String _analogInPinLabels[6] = {"A0", "A1", "A2", "A3", "A4", "A5"};
 int _analogInPinValues[6] = { -1, -1, -1, -1, -1, -1};
 
-bool _digitalInPinStatuses[14] = { false, false, true, true, false, false, false, false, false, false, false, false, false, false };
+bool _digitalInPinStatuses[14] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 String _digitalInPinLabels[14] = {"D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13"};
 String _digitalInPinValues[14] = {"LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW", "LOW"};
 
+bool _allOnOveride = true;
+
 int _delayMilliSecs = 10;
+
+int _piezoSpeakerPin = 12;
+int _speakerInputPin = 5;
 
 void setup() {
   Serial.begin(9600);
+  
+  if(_allOnOveride){
+    for (int analogPinIn = 0; analogPinIn < 6; analogPinIn++) {
+      _analogInPinStatuses[analogPinIn] = true;
+    }
+  
+    for (int digitalPin = 0; digitalPin < 14; digitalPin++) {
+      _digitalInPinStatuses[digitalPin] = true;
+    }
+  }
   
   for (int digitalPin = 0; digitalPin < 14; digitalPin++) {
     if (_digitalInPinStatuses[digitalPin]) {
       pinMode(digitalPin, INPUT);
     }
   }
+  
+  //pinMode(_piezoSpeakerPin, OUTPUT);
 }
 
 void loop() {
@@ -56,6 +73,8 @@ void loop() {
       _digitalInPinValues[digitalPin] = (digitalVal == 0) ? "L" : "H";
     }
   }
+
+  //tone(_piezoSpeakerPin, _analogInPinValues[_speakerInputPin]);
 
   graphPrint();
   delay(_delayMilliSecs);
